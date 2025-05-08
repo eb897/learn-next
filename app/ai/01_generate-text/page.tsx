@@ -8,17 +8,19 @@ export default function Page() {
   const [ isLoading, setIsLoading ] = useState(false);
 
   async function handleGenerateText() {
-    setIsLoading(true);
-
-    await fetch('/api/completion/generate-text', {
-      method: 'POST',
-      body: JSON.stringify({ prompt: '你好' }),
-    }).then(response => {
-      response.json().then(data => {
-        setText(data.text);
-        setIsLoading(false);
-      })
-    })
+    try {
+      setIsLoading(true);
+      const response = await fetch('/ai/01_generate-text/api', {
+        method: 'POST',
+        body: JSON.stringify({ prompt: '你好' }),
+      });
+      const data = await response.json();
+      setText(data.text);
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (

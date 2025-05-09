@@ -10,12 +10,12 @@ export async function POST(req: Request) {
 
   const { messages } : { messages: CoreMessage[] } = await req.json();
 
-  const { text } = await generateText({
+  const { response } = await generateText({
     model: openai('gpt-3.5-turbo'),
     system: '你是一个小助手.',
     messages,
   })
 
-  return Response.json({ text })
+  return Response.json({ messages: response.messages })
   
 }

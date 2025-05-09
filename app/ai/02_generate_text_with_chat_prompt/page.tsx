@@ -33,15 +33,11 @@ export default function Page() {
         })
       });
 
-      const res = await response.json();
-      console.log('res', res);
       const { messages: newMessages } = await response.json();
-      debugger;
       setMessages(currentMessages => [
         ...currentMessages,
         ...newMessages,
       ])
-      
       
     }
   }
